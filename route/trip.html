@@ -14,7 +14,31 @@
           content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0, maximum-scale=1, user-scalable=no, minimal-ui"/>
     <meta charset="UTF-8">
     <title>婚礼路线</title>
+    <style type="text/css">
+        html, body {
+            margin: 0;
+            padding: 0;
+        }
 
+        .iw_poi_title {
+            color: #CC5522;
+            font-size: 14px;
+            font-weight: bold;
+            overflow: hidden;
+            padding-right: 13px;
+            white-space: nowrap
+        }
+
+        .iw_poi_content {
+            font: 12px arial, sans-serif;
+            overflow: visible;
+            padding-top: 4px;
+            white-space: -moz-pre-wrap;
+            word-wrap: break-word
+        }
+    </style>
+    <script type="text/javascript"
+            src="http://api.map.baidu.com/api?key=X8pFGv4rfjizqa7u9iW0xYbB&v=1.1&services=true"></script>
 </head>
 <body>
 <style>
@@ -26,6 +50,13 @@
     div {
         background-color: #ffffff;
         width: 100%;
+    }
+
+    div p {
+        margin: 15px;
+        font-size: 20px;
+        color: #FF0000;
+        font-weight: bold
     }
 
     a {
@@ -46,6 +77,14 @@
         font-weight: bold
     }
 
+    section h6 {
+        font-size: 16px;
+        line-height: 16px;
+        border-left: 4px solid #009be1;
+        padding-left: 10px;
+        margin-bottom: 15px;
+    }
+
     div a {
         font-size: 16px;
         height: 16px;
@@ -55,6 +94,34 @@
         margin-bottom: 15px;
         font-weight: bold
     }
+
+    section article {
+        font-size: 14px;
+        height: 14px;
+    }
+
+    section li {
+        font-size: 14px;
+        height: 14px;
+        font-weight: bold
+    }
+
+    section comment {
+        font-size: 14px;
+        height: 14px;
+        margin: 10px;
+        margin-top: 20px;
+    }
+
+    section form img {
+        width: 100%;
+    }
+
+    section form li {
+        margin: 10px;
+        color: #FF0000;
+    }
+
 </style>
 <img src="../img/love24.jpg" width="100%">
 <br/>
@@ -67,10 +134,12 @@
     <br/>
     <br/>
 
+    <p>如果使用汽车导航，请搜索平谷海威兰石材!!!</p>
+
     <div>
         <img src="http://mobile.amap.com/attach/images/logo.png" width="149px">
         <br/>
-        <a href="http://amap.com/034bpe">点击使用高德地图查看具体详细位置</a>
+        <a href="../contact/contact.html">点击使用高德地图查看具体详细位置</a>
     </div>
     <br/>
 
@@ -87,15 +156,202 @@
 
     <section>
         <h5>起点北京方向路线</h5>
-        <ul>
-            <li></li>
-        </ul>
+        <article>不管从北京城哪里出发，建议走京平高速抵达平谷.</article>
+        <h6>京承高速-机场南线-京平高速路线</h6>
+
+        <form>
+            <li>进入京承高速</li>
+            <li>通过京承高速收费站</li>
+            <img src="../img/jc_sfz.png">
+            <li>前行2.5公里左右到达黄岗收费站</li>
+            <img src="../img/jc_pai.png">
+            <img src="../img/jc_hg.png">
+            <li>直行进入京平高速-吴各庄收费站</li>
+            <img src="../img/jp_wgz.png">
+            <li>直行一直到驶入平谷</li>
+        </form>
+
+        <h6>机场高速-京平高速路线</h6>
+
+        <form>
+            <li>进入机场高速</li>
+            <li>通过五元桥前行8公里左右注意路牌</li>
+            <img src="../img/jic_pai.png">
+            <img src="../img/jic_pai1.png">
+            <li>直行进入京平高速-吴各庄收费站</li>
+            <img src="../img/jp_wgz.png">
+            <li>直行一直到驶入平谷</li>
+        </form>
+
+        <h6>京平高速-婚礼现场路线</h6>
+        <article>抵达平谷可以从稻地收费站出口出，详情见导航</article>
+        <br/>
+        <br/>
+        <article>抵达平谷也可以从东高村收费站出口出,具体如下</article>
+        <br/>
+        <br/>
+        <h6>地图可滑动放大查看</h6>
+
+        <div style="width:90%;height:300px;border:#ccc solid 1px;" id="dituContent"></div>
+
+        <script type="text/javascript">
+            //创建和初始化地图函数：
+            function initMap() {
+                createMap();//创建地图
+                setMapEvent();//设置地图事件
+                addMapControl();//向地图添加控件
+                addMarker();//向地图中添加marker
+                addPolyline();//向地图中添加线
+                addRemark();//向地图中添加文字标注
+            }
+
+            //创建地图函数：
+            function createMap() {
+                var map = new BMap.Map("dituContent");//在百度地图容器中创建一个地图
+                var point = new BMap.Point(117.121202, 40.117089);//定义一个中心点坐标
+                map.centerAndZoom(point, 14);//设定地图的中心点和坐标并将地图显示在地图容器中
+                window.map = map;//将map变量存储在全局
+            }
+
+            //地图事件设置函数：
+            function setMapEvent() {
+                map.enableDragging();//启用地图拖拽事件，默认启用(可不写)
+                map.enableScrollWheelZoom();//启用地图滚轮放大缩小
+                map.enableDoubleClickZoom();//启用鼠标双击放大，默认启用(可不写)
+                map.disableKeyboard();//禁用键盘上下左右键移动地图，默认禁用(可不写)
+            }
+
+            //地图控件添加函数：
+            function addMapControl() {
+                //向地图中添加缩放控件
+                var ctrl_nav = new BMap.NavigationControl({anchor: BMAP_ANCHOR_TOP_RIGHT, type: BMAP_NAVIGATION_CONTROL_ZOOM});
+                map.addControl(ctrl_nav);
+            }
+
+            //标注点数组
+            var markerArr = [
+                {title: "婚礼现场", content: "亿升来养殖场", point: "117.132772|40.12044", isOpen: 0, icon: {w: 21, h: 21, l: 0, t: 0, x: 6, lb: 5}}
+            ];
+            //创建marker
+            function addMarker() {
+                for (var i = 0; i < markerArr.length; i++) {
+                    var json = markerArr[i];
+                    var p0 = json.point.split("|")[0];
+                    var p1 = json.point.split("|")[1];
+                    var point = new BMap.Point(p0, p1);
+                    var iconImg = createIcon(json.icon);
+                    var marker = new BMap.Marker(point, {icon: iconImg});
+                    var iw = createInfoWindow(i);
+                    var label = new BMap.Label(json.title, {"offset": new BMap.Size(json.icon.lb - json.icon.x + 10, -20)});
+                    marker.setLabel(label);
+                    map.addOverlay(marker);
+                    label.setStyle({
+                        borderColor: "#808080",
+                        color: "#333",
+                        cursor: "pointer"
+                    });
+
+                    (function () {
+                        var index = i;
+                        var _iw = createInfoWindow(i);
+                        var _marker = marker;
+                        _marker.addEventListener("click", function () {
+                            this.openInfoWindow(_iw);
+                        });
+                        _iw.addEventListener("open", function () {
+                            _marker.getLabel().hide();
+                        })
+                        _iw.addEventListener("close", function () {
+                            _marker.getLabel().show();
+                        })
+                        label.addEventListener("click", function () {
+                            _marker.openInfoWindow(_iw);
+                        })
+                        if (!!json.isOpen) {
+                            label.hide();
+                            _marker.openInfoWindow(_iw);
+                        }
+                    })()
+                }
+            }
+            //创建InfoWindow
+            function createInfoWindow(i) {
+                var json = markerArr[i];
+                var iw = new BMap.InfoWindow("<b class='iw_poi_title' title='" + json.title + "'>" + json.title + "</b><div class='iw_poi_content'>" + json.content + "</div>");
+                return iw;
+            }
+            //创建一个Icon
+            function createIcon(json) {
+                var icon = new BMap.Icon("http://app.baidu.com/map/images/us_mk_icon.png", new BMap.Size(json.w, json.h), {imageOffset: new BMap.Size(-json.l, -json.t), infoWindowOffset: new BMap.Size(json.lb + 5, 1), offset: new BMap.Size(json.x, json.h)})
+                return icon;
+            }
+            //标注线数组
+            var plPoints = [
+                {style: "solid", weight: 4, color: "#f00", opacity: 0.6, points: ["117.110548|40.099458", "117.113351|40.100423", "117.11468|40.100258", "117.115758|40.100092", "117.116549|40.100313", "117.116621|40.101444", "117.116064|40.107929", "117.120843|40.107984", "117.120807|40.108039", "117.120735|40.112123", "117.119837|40.125144", "117.125945|40.130785", "117.128748|40.130564", "117.129089|40.128068", "117.129844|40.120247", "117.132826|40.120454"]}
+            ];
+            //向地图中添加线函数
+            function addPolyline() {
+                for (var i = 0; i < plPoints.length; i++) {
+                    var json = plPoints[i];
+                    var points = [];
+                    for (var j = 0; j < json.points.length; j++) {
+                        var p1 = json.points[j].split("|")[0];
+                        var p2 = json.points[j].split("|")[1];
+                        points.push(new BMap.Point(p1, p2));
+                    }
+                    var line = new BMap.Polyline(points, {strokeStyle: json.style, strokeWeight: json.weight, strokeColor: json.color, strokeOpacity: json.opacity});
+                    map.addOverlay(line);
+                }
+            }
+            //文字标注数组
+            var lbPoints = [
+                {point: "117.117142|40.126109", content: "平谷小提琴环岛"}
+                ,
+                {point: "117.125406|40.131819", content: "拥军路入口"}
+                ,
+                {point: "117.111572|40.108867", content: "收费站外路口"}
+            ];
+            //向地图中添加文字标注函数
+            function addRemark() {
+                for (var i = 0; i < lbPoints.length; i++) {
+                    var json = lbPoints[i];
+                    var p1 = json.point.split("|")[0];
+                    var p2 = json.point.split("|")[1];
+                    var label = new BMap.Label("<div style='padding:2px;'>" + json.content + "</div>", {point: new BMap.Point(p1, p2), offset: new BMap.Size(3, -6)});
+                    map.addOverlay(label);
+                    label.setStyle({borderColor: "#999"});
+                }
+            }
+
+            initMap();//创建和初始化地图
+        </script>
+        <form>
+            <li>小提琴环岛</li>
+            <img src="../img/xtq_dao.png">
+            <li>小提琴环岛驶向东寺渠方向</li>
+            <img src="../img/xtq_pai.png">
+            <li>前行大约750米注意路牌右拐进拥军路</li>
+            <img src="../img/yjl.png">
+            <li>看到东寺渠建材城右拐</li>
+            <img src="../img/dsq.png">
+            <li>前行1000米注意路牌左转66362部队方向200米到达婚礼现场</li>
+        </form>
     </section>
     <br/>
     <section>
         <h5>起点平谷区内路线</h5>
+        <section>
+            <form>
+                <li>滴滴打车、快的打车，目的地走拥军路东高村北大理石厂</li>
+                <br/>
+                <li>拨打五元电话，目的地走拥军路东高村北大理石厂</li>
+                <br/>
+                <a href="tel:69969919">点击拨打五元电话:010-69969919</a>
+            </form>
+        </section>
 
     </section>
 </div>
+<br/><br/><br/>
 </body>
 </html>
